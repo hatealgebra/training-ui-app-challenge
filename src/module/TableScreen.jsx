@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Container, UncontrolledTooltip } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DataTableCard2, DateTime } from "asab_webui_components";
@@ -12,20 +12,6 @@ const loader = async ({ params }) => {
   const rows = response.data.data;
   const count = response.data.count;
   return { count, rows };
-};
-
-const Header = () => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <div className="flex-fill">
-        <h3>
-          <i className="bi bi-stopwatch pe-2"></i>
-          {t("SessionListContainer|Sessions")}
-        </h3>
-      </div>
-    </>
-  );
 };
 
 const getColumns = (translationFn) => [
@@ -83,28 +69,31 @@ const getColumns = (translationFn) => [
   {
     thStyle: { width: "0px" }, // This is how you do the column for buttons
     tdStyle: { padding: "0px", whiteSpace: "nowrap" },
-    render: ({ row, column }) => {
-      console.log({ row, column });
-      return (
-        // <>
-        //   <button className="btn btn-primary me-1" onClick={() => onYClick(row)}>
-        //     <i className="bi bi-check"></i>
-        //   </button>
-        //   <button className="btn btn-danger" onClick={() => onXClick(row)}>
-        //     <i className="bi bi-trash"></i>
-        //   </button>
-        // </>
-        <Link key="hello" to={`/detail/${row.id}`} className="btn btn-primary">
-          {translationFn("Data|detail")}
-        </Link>
-      );
-    },
+    render: ({ row }) => (
+      <Link key="hello" to={`/detail/${row.id}`} className="btn btn-primary">
+        {translationFn("Data|detail")}
+      </Link>
+    ),
   },
 ];
 
+const Header = () => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <div className="flex-fill">
+        <h3>
+          <i className="bi bi-stopwatch pe-2"></i>
+          {t("SessionListContainer|Sessions")}
+        </h3>
+      </div>
+    </>
+  );
+};
+
 export function TableScreen() {
   const { t } = useTranslation();
-  const columns = useMemo(() => getColumns(t), [t]);
+  const columns = React.useMemo(() => getColumns(t), [t]);
 
   return (
     <Container className="h-100">

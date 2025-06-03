@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import ServiceAPI from "../services/axiosInstances";
 
@@ -18,8 +18,6 @@ import DataIcon from "./DataIcon";
 import { Link } from "react-router-dom";
 
 const isDateTime = (key, value) => {
-  console.log(key);
-
   if (key !== "created" && key !== "last_sign_in") {
     return <span>{value}</span>;
   }
