@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import DataIcon from "./DataIcon";
 
 const loader = async ({ params }) => {
-  let response = await ServiceAPI.get("/data", { params: params });
+  const response = await ServiceAPI.get("/data", { params });
 
   const rows = response.data.data;
   const count = response.data.count;
@@ -101,7 +101,7 @@ export function TableScreen() {
         header={<Header />}
         className="h-50"
         columns={columns}
-        loader={async () => await loader({ params: { p: 1 } })}
+        loader={loader}
       />
     </Container>
   );
