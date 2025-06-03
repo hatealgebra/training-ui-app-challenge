@@ -3,14 +3,16 @@ import React, { useMemo } from "react";
 import ServiceAPI from "../services/axiosInstances";
 
 import { useParams } from "react-router";
-import { AdvancedCard, ResultCard } from "asab_webui_components";
 import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
+import { useTranslation } from "react-i18next";
 
 const DetailScreen = () => {
   const { id } = useParams();
   const [data, setData] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (!id) return;
@@ -46,7 +48,9 @@ const DetailScreen = () => {
                 width: "18rem",
               }}
             >
-              <CardHeader className="text-uppercase fw-bold">{key}</CardHeader>
+              <CardHeader className="text-uppercase fw-bold">
+                {t(`Data|${key}`).replace(/_/g, " ")}
+              </CardHeader>
               <CardBody>
                 <span>{value}</span>
               </CardBody>

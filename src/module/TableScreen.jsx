@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Container, UncontrolledTooltip } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DataTableCard2, DateTime } from "asab_webui_components";
@@ -7,15 +7,15 @@ import { Link } from "react-router-dom";
 
 const loader = async ({ params }) => {
   let response = await ServiceAPI.get("/data", { params: params });
-  console.log("Response from /data:", response.data);
+
   const rows = response.data.data;
   const count = response.data.count;
   return { count, rows };
 };
 
-const columns = [
+const getColumns = (translationFn) => [
   {
-    title: "Username",
+    title: translationFn("Data|username"),
     thStyle: { minWidth: "2rem" },
     render: ({ row: { id, username } }) => {
       const targetRef = `TooltipRef-${id}`;
@@ -30,17 +30,17 @@ const columns = [
     },
   },
   {
-    title: "Email",
+    title: translationFn("Data|email"),
     thStyle: { minWidth: "2rem" },
     render: ({ row }) => row.email,
   },
   {
-    title: "Created at",
+    title: translationFn("Data|created"),
     thStyle: { minWidth: "4rem" },
     render: ({ row: { created } }) => <DateTime value={created} />,
   },
   {
-    title: "Last Sign In",
+    title: translationFn("Data|last_sign_in"),
     thStyle: { minWidth: "4rem" },
     render: ({ row: { last_sign_in } }) => <DateTime value={last_sign_in} />,
   },
@@ -59,15 +59,16 @@ const columns = [
         //   </button>
         // </>
         <Link key="hello" to={`/detail/${row.id}`} className="btn btn-primary">
-          Detail
+          {translationFn("Data|detail")}
         </Link>
       );
     },
   },
 ];
 
-export function TableScreen(props) {
+export function TableScreen() {
   const { t } = useTranslation();
+  const columns = useMemo(() => getColumns(t), [t]);
 
   return (
     <Container className="h-100">
