@@ -101,7 +101,7 @@ export function TableScreen() {
         header={<Header />}
         className="h-50"
         columns={columns}
-        loader={async () => await loader({ params: { p: 1, i: 20 } })}
+        loader={async () => await loader({ params: { p: 1 } })}
       />
     </Container>
   );
