@@ -5,10 +5,10 @@ import { Application, I18nModule, AboutModule } from "asab_webui_shell";
 
 // Add MSW enableMocking function
 async function enableMocking() {
-  if (process.env.NODE_ENV === "development") {
-    const { worker } = await import("./mocks/browser");
-    await worker.start();
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   const { worker } = await import("./mocks/browser");
+  //   await worker.start();
+  // }
 }
 
 (async function init() {

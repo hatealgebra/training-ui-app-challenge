@@ -3,6 +3,7 @@ import { Container, UncontrolledTooltip } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DataTableCard2, DateTime } from "asab_webui_components";
 import ServiceAPI from "../services/axiosInstances";
+import { Link } from "react-router-dom";
 
 const loader = async ({ params }) => {
   let response = await ServiceAPI.get("/data", { params: params });
@@ -46,16 +47,22 @@ const columns = [
   {
     thStyle: { width: "0px" }, // This is how you do the column for buttons
     tdStyle: { padding: "0px", whiteSpace: "nowrap" },
-    render: ({ row, column }) => (
-      <>
-        <button className="btn btn-primary me-1" onClick={() => onYClick(row)}>
-          <i className="bi bi-check"></i>
-        </button>
-        <button className="btn btn-danger" onClick={() => onXClick(row)}>
-          <i className="bi bi-trash"></i>
-        </button>
-      </>
-    ),
+    render: ({ row, column }) => {
+      console.log({ row, column });
+      return (
+        // <>
+        //   <button className="btn btn-primary me-1" onClick={() => onYClick(row)}>
+        //     <i className="bi bi-check"></i>
+        //   </button>
+        //   <button className="btn btn-danger" onClick={() => onXClick(row)}>
+        //     <i className="bi bi-trash"></i>
+        //   </button>
+        // </>
+        <Link key="hello" to={`/detail/${row.id}`} className="btn btn-primary">
+          Detail
+        </Link>
+      );
+    },
   },
 ];
 
