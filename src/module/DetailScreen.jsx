@@ -3,10 +3,19 @@ import React, { useMemo } from "react";
 import ServiceAPI from "../services/axiosInstances";
 
 import { useParams } from "react-router";
-import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  CardBody,
+  CardHeader,
+  Container,
+  Row,
+} from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DateTime } from "asab_webui_components";
 import DataIcon from "./DataIcon";
+import { Link } from "react-router-dom";
 
 const isDateTime = (key, value) => {
   console.log(key);
@@ -48,6 +57,15 @@ const DetailScreen = () => {
 
   return (
     <Container>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <Link to="/">Table screen</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>
+          <span className="text-uppercase fw-bold">Customer detail </span>
+          <span>({id})</span>
+        </BreadcrumbItem>
+      </Breadcrumb>
       <Row className="gap-3" widths={["100%", "100px", "200px"]}>
         {id &&
           data.map(([key, value], i) => (
