@@ -26,7 +26,7 @@ const DataIcon = ({ iconKey, direction = "left" }) => {
 
   return (
     <i
-      class={`bi ${iconClass} ${direction === "left" ? "pe-2" : "pr-2"}`}
+      className={`bi ${iconClass} ${direction === "left" ? "pe-2" : "pr-2"}`}
       label={t(`Data|${iconKey}`)}
     ></i>
   );
