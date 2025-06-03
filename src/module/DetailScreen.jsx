@@ -5,6 +5,16 @@ import ServiceAPI from "../services/axiosInstances";
 import { useParams } from "react-router";
 import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
+import { DateTime } from "asab_webui_components";
+
+const isDateTime = (key, value) => {
+  console.log(key);
+
+  if (key !== "created" && key !== "last_sign_in") {
+    return <span>{value}</span>;
+  }
+  return <DateTime value={value} />;
+};
 
 const DetailScreen = () => {
   const { id } = useParams();
@@ -21,7 +31,6 @@ const DetailScreen = () => {
 
     ServiceAPI.get(`/detail/${id}`)
       .then((response) => {
-        console.log("Response from /detail:", response.data);
         const responseData = Object.entries(response.data);
         setData(responseData);
       })
@@ -51,9 +60,7 @@ const DetailScreen = () => {
               <CardHeader className="text-uppercase fw-bold">
                 {t(`Data|${key}`).replace(/_/g, " ")}
               </CardHeader>
-              <CardBody>
-                <span>{value}</span>
-              </CardBody>
+              <CardBody>{isDateTime(key, value)}</CardBody>
             </Card>
           ))}
       </Row>
