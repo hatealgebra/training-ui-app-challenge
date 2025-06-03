@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DateTime } from "asab_webui_components";
+import DataIcon from "./DataIcon";
 
 const isDateTime = (key, value) => {
   console.log(key);
@@ -58,7 +59,8 @@ const DetailScreen = () => {
               }}
             >
               <CardHeader className="text-uppercase fw-bold">
-                {t(`Data|${key}`).replace(/_/g, " ")}
+                <DataIcon iconKey={key} />
+                <span>{t(`Data|${key}`).replace(/_/g, " ")}</span>
               </CardHeader>
               <CardBody>{isDateTime(key, value)}</CardBody>
             </Card>

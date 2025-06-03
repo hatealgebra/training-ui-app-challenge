@@ -4,6 +4,21 @@ import { useTranslation } from "react-i18next";
 import { DataTableCard2, DateTime } from "asab_webui_components";
 import ServiceAPI from "../services/axiosInstances";
 import { Link } from "react-router-dom";
+import DataIcon from "./DataIcon";
+
+const Header = () => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <div className="flex-fill">
+        <h3>
+          <i className="bi bi-stopwatch pe-2"></i>
+          {t("SessionListContainer|Sessions")}
+        </h3>
+      </div>
+    </>
+  );
+};
 
 const loader = async ({ params }) => {
   let response = await ServiceAPI.get("/data", { params: params });
@@ -15,7 +30,12 @@ const loader = async ({ params }) => {
 
 const getColumns = (translationFn) => [
   {
-    title: translationFn("Data|username"),
+    title: (
+      <>
+        <DataIcon iconKey="username" />
+        <span>{translationFn("Data|username")}</span>
+      </>
+    ),
     thStyle: { minWidth: "2rem" },
     render: ({ row: { id, username } }) => {
       const targetRef = `TooltipRef-${id}`;
@@ -30,17 +50,33 @@ const getColumns = (translationFn) => [
     },
   },
   {
-    title: translationFn("Data|email"),
+    title: (
+      <>
+        <DataIcon iconKey="email" />
+        <span>{translationFn("Data|email")}</span>
+      </>
+    ),
+    icon: "bi-alarm",
     thStyle: { minWidth: "2rem" },
     render: ({ row }) => row.email,
   },
   {
-    title: translationFn("Data|created"),
+    title: (
+      <>
+        <DataIcon iconKey="created" />
+        <span>{translationFn("Data|created")}</span>
+      </>
+    ),
     thStyle: { minWidth: "4rem" },
     render: ({ row: { created } }) => <DateTime value={created} />,
   },
   {
-    title: translationFn("Data|last_sign_in"),
+    title: (
+      <>
+        <DataIcon iconKey="last_sign_in" />
+        <span>{translationFn("Data|last_sign_in")}</span>
+      </>
+    ),
     thStyle: { minWidth: "4rem" },
     render: ({ row: { last_sign_in } }) => <DateTime value={last_sign_in} />,
   },
@@ -73,6 +109,7 @@ export function TableScreen() {
   return (
     <Container className="h-100">
       <DataTableCard2
+        header={<Header />}
         className="h-50"
         columns={columns}
         loader={async () => await loader({ params: { p: 1, i: 20 } })}
