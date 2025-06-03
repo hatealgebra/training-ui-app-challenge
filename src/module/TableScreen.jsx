@@ -1,18 +1,8 @@
 import React from "react";
-import { Container, Tooltip, UncontrolledTooltip } from "reactstrap";
+import { Container, UncontrolledTooltip } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { DataTableCard2, DateTime } from "asab_webui_components";
-import axios from "axios";
-import { Link } from "react-router-dom";
-
-const ServiceAPI = axios.create({
-  baseURL: "https://devtest.teskalabs.com",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-export { ServiceAPI };
+import ServiceAPI from "../services/axiosInstances";
 
 const loader = async ({ params }) => {
   let response = await ServiceAPI.get("/data", { params: params });
