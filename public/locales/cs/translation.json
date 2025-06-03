@@ -97,6 +97,6 @@
     "address": "Adresa",
     "phone_number": "Telefonní číslo",
     "ip_address": "IP adresa",
-    "mac_adress": "MAC adresa"
+    "mac_address": "MAC adresa"
   }
 }

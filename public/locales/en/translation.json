@@ -96,6 +96,6 @@
     "address": "Address",
     "phone_number": "Phone number",
     "ip_address": "IP Address",
-    "mac_adress": "MAC Address"
+    "mac_address": "MAC Address"
   }
 }
